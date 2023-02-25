@@ -1,8 +1,8 @@
 ## Run KiCad 5 Using Docker
 
-I upgraded to Ubuntu 22.04 and the appimage for KiCad 5.1 would no longer work. So I built a Docker image to run KiCad 5.1 without disturbing my KiCad 6 installation. Here are the steps to do that in case anyone else needs it.
+I built a Docker image to run KiCad 5 without disturbing my other KiCad installations. Here are the steps to do that in case anyone else needs it.
 
-## Building the KiCad5 Docker Image
+## Building the KiCad 5 Docker Image
 
 Create a file named `dockerfile` with these contents:
 ```
@@ -42,6 +42,7 @@ USER ${USER_NAME}
 
 # Uncomment one of the entrypoints for whatever app you want to run in the container.
 #ENTRYPOINT ["eeschema"]
+#ENTRYPOINT ["pcbnew"]
 ENTRYPOINT ["kicad"]
 ```
 
@@ -55,7 +56,7 @@ docker build \
     -t kicad5 .
 ```
 
-## Running the KiCad5 Docker Container
+## Running the KiCad 5 Docker Container
 
 The Docker container can access the local host's X11 display, KiCad libraries and your home
 directory when it's run using the following command:

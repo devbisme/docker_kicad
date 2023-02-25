@@ -33,5 +33,6 @@ RUN mkdir -p ${HOME} && \
 USER ${USER_NAME}
 
 # Uncomment one of the entrypoints for whatever app you want to run in the container.
-# ENTRYPOINT ["eeschema"]
+#ENTRYPOINT ["eeschema"]
+#ENTRYPOINT ["pcbnew"]
 ENTRYPOINT ["kicad"]
