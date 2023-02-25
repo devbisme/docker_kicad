@@ -16,11 +16,11 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 5.1.12.
-# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-5.1-releases.)
-RUN add-apt-repository --yes ppa:kicad/kicad-5.1-releases && \
+# Install KiCad 6.0.11
+# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-6.0-releases.)
+RUN add-apt-repository --yes ppa:kicad/kicad-6.0-releases && \
     apt-get update && \
-    apt-get install -y kicad=5.1.12-202111050916+84ad8e8a86~92~ubuntu20.04.1
+    apt-get install -y kicad=6.0.11-0-202302012048+2627ca5db0~126~ubuntu20.04.1
 
 # Replace with your login name, user ID, group ID and HOME from your local host machine
 # using the --build-arg option.
@@ -41,18 +41,19 @@ RUN mkdir -p ${HOME} && \
 USER ${USER_NAME}
 
 # Uncomment one of the entrypoints for whatever app you want to run in the container.
-#ENTRYPOINT ["eeschema"]
+# ENTRYPOINT ["eeschema"]
+# ENTRYPOINT ["pcbnew"]
 ENTRYPOINT ["kicad"]
 ```
 
-Build the Docker image and name it `kicad5`:
+Build the Docker image and name it `kicad6`:
 ```shellsession
 docker build \
     --build-arg UID=`id -u` \
     --build-arg GID=`id -g` \
     --build-arg USER_NAME=`id -nu` \
     --build-arg HOME=$HOME \
-    -t kicad5 .
+    -t kicad6 .
 ```
 
 ## Running the KiCad5 Docker Container
@@ -65,13 +66,13 @@ docker run --rm \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /usr/share/kicad:/usr/share/kicad \
     -v $HOME:$HOME \
-    kicad5
+    kicad6
 ```
 
-At this point, you should see the KiCad 5 main window.
+At this point, you should see the KiCad 6 main window.
 
 For convenience, you can alias this command in your `.bashrc` file like so:
 ```shellsession
 DCKR_X11="docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /usr/share/kicad:/usr/share/kicad -v $HOME:$HOME"
-alias kicad5="$DCKR_X11 kicad5"
+alias kicad6="$DCKR_X11 kicad6"
 ```
