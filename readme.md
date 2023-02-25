@@ -1,8 +1,8 @@
-## Run KiCad 5 Using Docker
+## Run KiCad 7 Using Docker
 
-I upgraded to Ubuntu 22.04 and the appimage for KiCad 5.1 would no longer work. So I built a Docker image to run KiCad 5.1 without disturbing my KiCad 6 installation. Here are the steps to do that in case anyone else needs it.
+I built a Docker image to run KiCad 7 without disturbing any of my other KiCad installations. Here are the steps to do that in case anyone else needs it.
 
-## Building the KiCad5 Docker Image
+## Building the KiCad 7 Docker Image
 
 Create a file named `dockerfile` with these contents:
 ```
@@ -16,11 +16,11 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 6.0.11
-# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-6.0-releases.)
-RUN add-apt-repository --yes ppa:kicad/kicad-6.0-releases && \
+# Install KiCad 7.0.0.
+# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-7.0-releases.)
+RUN add-apt-repository --yes ppa:kicad/kicad-7.0-releases && \
     apt-get update && \
-    apt-get install -y kicad=6.0.11-0-202302012048+2627ca5db0~126~ubuntu20.04.1
+    apt-get install -y kicad=7.0.0-1-202302220943+da2b9df05c~165~ubuntu20.04.1
 
 # Replace with your login name, user ID, group ID and HOME from your local host machine
 # using the --build-arg option.
@@ -46,7 +46,7 @@ USER ${USER_NAME}
 ENTRYPOINT ["kicad"]
 ```
 
-Build the Docker image and name it `kicad6`:
+Build the Docker image and name it `kicad7`:
 ```shellsession
 docker build \
     --build-arg UID=`id -u` \
@@ -66,13 +66,13 @@ docker run --rm \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /usr/share/kicad:/usr/share/kicad \
     -v $HOME:$HOME \
-    kicad6
+    kicad7
 ```
 
-At this point, you should see the KiCad 6 main window.
+At this point, you should see the KiCad 7 main window.
 
 For convenience, you can alias this command in your `.bashrc` file like so:
 ```shellsession
 DCKR_X11="docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /usr/share/kicad:/usr/share/kicad -v $HOME:$HOME"
-alias kicad6="$DCKR_X11 kicad6"
+alias kicad7="$DCKR_X11 kicad7"
 ```
