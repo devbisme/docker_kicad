@@ -1,8 +1,8 @@
-## Run KiCad 5 Using Docker
+## Run KiCad 6 Using Docker
 
-I upgraded to Ubuntu 22.04 and the appimage for KiCad 5.1 would no longer work. So I built a Docker image to run KiCad 5.1 without disturbing my KiCad 6 installation. Here are the steps to do that in case anyone else needs it.
+I built a Docker image to run KiCad 6 without disturbing my oyther KiCad installations. Here are the steps to do that in case anyone else needs it.
 
-## Building the KiCad5 Docker Image
+## Building the KiCad 6 Docker Image
 
 Create a file named `dockerfile` with these contents:
 ```
@@ -16,7 +16,7 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 6.0.11
+# Install KiCad 6.0.11.
 # (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-6.0-releases.)
 RUN add-apt-repository --yes ppa:kicad/kicad-6.0-releases && \
     apt-get update && \
@@ -56,7 +56,7 @@ docker build \
     -t kicad6 .
 ```
 
-## Running the KiCad5 Docker Container
+## Running the KiCad 6 Docker Container
 
 The Docker container can access the local host's X11 display, KiCad libraries and your home
 directory when it's run using the following command:

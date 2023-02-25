@@ -8,7 +8,7 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 6.0.11
+# Install KiCad 6.0.11.
 # (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-6.0-releases.)
 RUN add-apt-repository --yes ppa:kicad/kicad-6.0-releases && \
     apt-get update && \
