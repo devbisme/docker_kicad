@@ -16,11 +16,11 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 7.0.0.
+# Install KiCad 7.0.11.
 # (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-7.0-releases.)
 RUN add-apt-repository --yes ppa:kicad/kicad-7.0-releases && \
     apt-get update && \
-    apt-get install -y kicad=7.0.0-1-202302220943+da2b9df05c~165~ubuntu20.04.1
+    apt-get install -y kicad=7.0.11~ubuntu20.04.1
 
 # Replace with your login name, user ID, group ID and HOME from your local host machine
 # using the --build-arg option.
@@ -53,10 +53,10 @@ docker build \
     --build-arg GID=`id -g` \
     --build-arg USER_NAME=`id -nu` \
     --build-arg HOME=$HOME \
-    -t kicad6 .
+    -t kicad7 .
 ```
 
-## Running the KiCad5 Docker Container
+## Running the KiCad 7 Docker Container
 
 The Docker container can access the local host's X11 display, KiCad libraries and your home
 directory when it's run using the following command:
