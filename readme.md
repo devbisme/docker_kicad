@@ -1,8 +1,8 @@
-## Run KiCad 7 Using Docker
+## Run KiCad 8 Using Docker
 
-I built a Docker image to run KiCad 7 without disturbing any of my other KiCad installations. Here are the steps to do that in case anyone else needs it.
+I built a Docker image to run KiCad 8 without disturbing any of my other KiCad installations. Here are the steps to do that in case anyone else needs it.
 
-## Building the KiCad 7 Docker Image
+## Building the KiCad 8 Docker Image
 
 Create a file named `dockerfile` with these contents:
 ```
@@ -16,11 +16,11 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 7.0.11.
-# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-7.0-releases.)
-RUN add-apt-repository --yes ppa:kicad/kicad-7.0-releases && \
+# Install KiCad 8.0.0.
+# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-8.0-releases.)
+RUN add-apt-repository --yes ppa:kicad/kicad-8.0-releases && \
     apt-get update && \
-    apt-get install -y kicad=7.0.11~ubuntu20.04.1
+    apt-get install -y kicad=8.0.0-1~ubuntu20.04.1
 
 # Replace with your login name, user ID, group ID and HOME from your local host machine
 # using the --build-arg option.
@@ -46,17 +46,17 @@ USER ${USER_NAME}
 ENTRYPOINT ["kicad"]
 ```
 
-Build the Docker image and name it `kicad7`:
+Build the Docker image and name it `kicad8`:
 ```shellsession
 docker build \
     --build-arg UID=`id -u` \
     --build-arg GID=`id -g` \
     --build-arg USER_NAME=`id -nu` \
     --build-arg HOME=$HOME \
-    -t kicad7 .
+    -t kicad8 .
 ```
 
-## Running the KiCad 7 Docker Container
+## Running the KiCad 8 Docker Container
 
 The Docker container can access the local host's X11 display, KiCad libraries and your home
 directory when it's run using the following command:
@@ -66,13 +66,13 @@ docker run --rm \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /usr/share/kicad:/usr/share/kicad \
     -v $HOME:$HOME \
-    kicad7
+    kicad8
 ```
 
-At this point, you should see the KiCad 7 main window.
+At this point, you should see the KiCad 8 main window.
 
 For convenience, you can alias this command in your `.bashrc` file like so:
 ```shellsession
 DCKR_X11="docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /usr/share/kicad:/usr/share/kicad -v $HOME:$HOME"
-alias kicad7="$DCKR_X11 kicad7"
+alias kicad8="$DCKR_X11 kicad8"
 ```

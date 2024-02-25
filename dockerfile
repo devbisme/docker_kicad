@@ -8,11 +8,11 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y sudo keyboard-configuration software-properties-common
 
-# Install KiCad 7.0.11.
-# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-7.0-releases.)
-RUN add-apt-repository --yes ppa:kicad/kicad-7.0-releases && \
+# Install KiCad 8.0.0.
+# (Got the version from https://launchpad.net/~kicad/+archive/ubuntu/kicad-8.0-releases.)
+RUN add-apt-repository --yes ppa:kicad/kicad-8.0-releases && \
     apt-get update && \
-    apt-get install -y kicad=7.0.11~ubuntu20.04.1
+    apt-get install -y kicad=8.0.0-1~ubuntu20.04.1
 
 # Replace with your login name, user ID, group ID and HOME from your local host machine
 # using the --build-arg option.
